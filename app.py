@@ -33,8 +33,6 @@ import json
 
 from fastapi import FastAPI
 
-from hash import *
-
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 browserless_api_key = os.getenv("BROWSERLESS_API_KEY")
