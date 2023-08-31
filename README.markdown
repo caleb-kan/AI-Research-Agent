@@ -28,7 +28,7 @@ To experience the power of the AI Research Agent for yourself, it's incredibly s
 
 ### Technical Initialization
 - Libaries to install: `tweepy`, `beautifulsoup4`, `bs4`, `fastapi`, `jsonschema`, `jsonschema-specifications`, `langchain`, `langchainplus-sdk`, `matplotlib`, `numpy`, `openai`, `openapi-schema-pydantic`, `pandas`, `pydantic`, `python-dotenv`, `streamlit`, `typer`, `typing_extensions`, `typing-inspect`, `tiktoken`, `streamlit-js-eval`, `pymongo`
-- Defining Large Language Models
+- Defining the Large Language Model
 	```python
 	llm  =  ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k")
 	```
