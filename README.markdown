@@ -1,100 +1,216 @@
-SEE HOW IT WORKS ON: https://calebkan.streamlit.app/
+# Introducing the AI Research Agent 
+In the age of information, having quick and reliable access to accurate data is paramount. The AI Research Agent is here to revolutionize the way we gather information. Powered by advanced artificial intelligence and equipped with web scraping capabilities, this agent is adept at sourcing, summarizing, and citing information on a plethora of topics. Whether you're a researcher in academia, a professional in the industry, or simply a curious mind, the AI Research Agent streamlines the data gathering process, ensuring that you receive high-quality information from diverse sources. Welcome to the future of efficient and comprehensive research.
+## Table of Contents  
+- [Overview](#overview) 
+- [Getting Started](#getting-started) 
+	- [Installation](#installation) 
+	- [Technical Initialization](#technical-initialization)  	
+	- [Functionality](#functionality) 
+- [Feedback and Contributions](#feedback-and-contributions) 
+## Overview 
+AI Research Agent: LLM 💬 + Memory 🧠+ Web Scraping 🕸️ + Tool Use 🧰  
+  
+In today's fast-paced research environment, efficiency is paramount. With this in mind, I developed an AI Research Agent designed to revolutionize the research process by automating the data extraction from the vast expanse of the internet.  
+  
+Key Features & Workflow:  
+  
+1. User Query Initiation: Researchers simply pose a research question to the AI.  
+2. Web Search: The AI delves into the web, using the provided question as a search criterion, streamlining the hunt for relevant information.  
+3. Relevance Analysis: Once on a site, the AI evaluates the content, determining its relevance to the posed query. This ensures that only pertinent information is extracted.  
+4. Web Scraping: Using advanced web scraping techniques, the AI gathers data from the relevant sites.  
+5. Information Synthesis: Leveraging the power of a Large Language Model, the agent then processes this data, distilling it into concise, key takeaways.  
+6. User Output: The summarized information is then presented to the researcher, providing them with a digestible and relevant answer to their initial query.  
+  
+The overarching aim of this project was to significantly reduce the time researchers spend sifting through myriad sources. By centralizing and automating this process, the AI Research Agent ensures that researchers can spend more time analyzing and less time searching.
+## Getting Started  
+### Installation 
+To experience the power of the AI Research Agent for yourself, it's incredibly straightforward. All you need to do is [click on this link](https://calebkan.streamlit.app/) and you'll be on your way to a seamless research journey.
 
-AI Research Agent: A Revolution in Information Gathering
+### Technical Initialization
+- Libaries to install: `tweepy`, `beautifulsoup4`, `bs4`, `fastapi`, `jsonschema`, `jsonschema-specifications`, `langchain`, `langchainplus-sdk`, `matplotlib`, `numpy`, `openai`, `openapi-schema-pydantic`, `pandas`, `pydantic`, `python-dotenv`, `streamlit`, `typer`, `typing_extensions`, `typing-inspect`, `tiktoken`, `streamlit-js-eval`, `pymongo`
+- Defining Large Language Models
+	```python
+	llm  =  ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k")
+	```
 
-The AI Research Agent is a cutting-edge technology that revolutionizes
-the way we research and gather information. This highly innovative tool
-incorporates artificial intelligence and web scraping techniques to
-facilitate comprehensive, efficient, and reliable data acquisition on
-any topic.
+### Functionality
+   -   **Description**: When the application is in running, it dives into the top search results related to your query. Using a sophisticated large language model, the bot evaluates whether a website contains information relevant to your research objective. If a match is found, the bot extracts the necessary text data. This process is repeated for multiple websites, ensuring a comprehensive search. At the end of this research expedition, the bot crafts a summarized output of its findings, neatly packaged with citations for your reference.
+    - **Technical**: 
+		- `function to search the web`
+			 ```python
+		    def  search(query):
+				url  =  "https://google.serper.dev/search"
+				payload  =  json.dumps({
+					"q": query
+				})
+		
+				headers  = {
+					'X-API-KEY': serper_api_key,
+					'Content-Type': 'application/json'
+				}
 
-Key Functions:
+				 response  =  requests.request("POST", url, headers=headers, data=payload)
+				 
+				print(response.text)
+				
+				return  response.text 
+			```
+			
+		- `function to scrape website`
+			```python 
+			def  scrape_website(objective: str, url: str):
+				
+				print("Scraping website...")
+				
+				headers  = {
+				'Cache-Control': 'no-cache',
+				'Content-Type': 'application/json',
+				}
 
-Data Fetching: The AI Research Agent navigates the internet,
-meticulously searching through a broad array of sources, including
-academic articles, blogs, news sites, and databases. It's programmed to
-bypass irrelevant information and zero in on the most valuable,
-reliable, and pertinent content related to the selected topic.
+				data  = {
+					"url": url
+				}
 
-Data Summarization: One of the most time-consuming aspects of research
-is distilling vast amounts of information into a concise, understandable
-summary. The AI Research Agent's sophisticated algorithms process the
-fetched data and generate brief, accurate summaries, eliminating the
-need for manual sorting and synthesis of information.
+				data_json  =  json.dumps(data)
 
-Citations: To ensure the credibility of the information provided, the AI
-Research Agent automatically includes citations for every piece of data
-it collects. It's capable of generating references in various styles,
-including APA, MLA, and Chicago, among others.
+				post_url  =  f"https://chrome.browserless.io/content?token={browserless_api_key}"
 
-Advantages:
+				response  =  requests.post(post_url, headers=headers, data=data_json)
 
-Efficiency: The AI Research Agent significantly reduces the time spent
-on research. It delivers the most relevant information in a fraction of
-the time it would take a human researcher, freeing up time for more
-in-depth analysis or other tasks.
+				if  response.status_code  ==  200:
 
-Accuracy: It uses advanced algorithms to ensure the accuracy of the data
-it collects. It's designed to minimize errors and biases, providing the
-user with the most reliable information.
+					soup  =  BeautifulSoup(response.content, "html.parser")
 
-Versatility: The AI Research Agent can be utilized across a wide range
-of disciplines, from business and economics to science and humanities.
-It has the potential to drastically change the way we conduct research
-in many fields.
+					text  =  soup.get_text()
 
-User-friendly: Its interface is intuitive and straightforward, making it
-easy for users of all levels to navigate and use effectively.
+					print("THIS CONTENT:", text)
 
-Ethical Web Scraping: The agent adheres to all ethical guidelines and
-legal norms associated with web scraping. It respects website terms of
-service and doesn't overload servers, ensuring its data acquisition
-methods are responsible and sustainable.
+				  
 
-The AI Research Agent is a powerful tool that has the potential to
-transform the future of research across various fields. By making
-information gathering more efficient and reliable, it allows researchers
-to focus on analysis and interpretation, fostering innovation and
-advancements in knowledge.
+					if  len(text) >  10000:
 
-To run this program, you will need to install all the libaries in
-"requirements.txt", you will also need to generate API keys from OpenAI,
-Browserless, and Serper. These keys will be used to authenticate your
-program and allow it to access the respective services.
+						output  =  summary(objective, text)
 
-Follow these steps to create your API keys and set up your environment:
+						return  output
 
-Create API keys:
+					else:
 
-OpenAI: Visit the OpenAI API webpage and follow the instructions to
-create an API key. Browserless: Navigate to the Browserless API section
-and create an API key following the provided instructions. Serper: Visit
-the Serper API page and generate an API key as per the guidelines.
-Create a .env file: Once you have created your API keys, you need to
-store them in a .env file. This is a hidden file that stores environment
-variables, which are typically configuration values. You can create this
-file in the root directory of your project.
+						return  text
 
-Set up your environment variables: In your .env file, assign your API
-keys to the appropriate variable names. Each variable should be on its
-own line, in the format VARIABLE_NAME="Your API Key". Here's what it
-should look like:
+				else:
 
-OPENAI_API_KEY="your_openai_api_key"
-BROWSERLESS_API_KEY="your_browserless_api_key"
-SERP_API_KEY="your_serper_api_key"
+					print(f"HTTP request failed with status code {response.status_code}")
+			
+			```
+		- `function to produce final summary`
+			```python 
+			def  summary(objective, content):
 
-Replace "your_openai_api_key", "your_browserless_api_key", and
-"your_serper_api_key" with the respective keys you generated earlier.
-Make sure to keep the quotation marks to ensure the keys are treated as
-strings.
+				text_splitter  =  RecursiveCharacterTextSplitter(
+					separators=["\n\n", "\n"], chunk_size=10000, chunk_overlap=500)
 
-That's it! With these steps, your program should be able to use the keys
-to authenticate with the respective services.
+				docs  =  text_splitter.create_documents([content])
 
-Note: Ensure that your .env file is listed in your .gitignore file to
-prevent it from being committed to your git repository. This helps to
-keep your keys secure.
+				map_prompt  =  """
+				Write a summary of the following text for {objective}:
+				"{text}"
+				SUMMARY:
+				"""
+				
+				map_prompt_template  =  PromptTemplate(
+					template=map_prompt, input_variables=["text", "objective"])
 
-Finally, to run the app, place the command "streamlit run app.py" in
-your code interpreter terminal and the app should run.
+				summary_chain  =  load_summarize_chain(
+					llm=llm,
+					chain_type='map_reduce',
+					map_prompt=map_prompt_template,
+					combine_prompt=map_prompt_template,
+					verbose=True
+				)
+				
+				output  =  summary_chain.run(input_documents=docs, objective=objective)
+				
+				return  output
+			```
+		- `creating a research AI agent using the functions above with LangChain & OpenAI`
+			```python 
+			class  ScrapeWebsiteInput(BaseModel):
+				"""Inputs for scrape_website"""
+				objective: str  =  Field(
+					description="The objective & task that users give to the agent")
+				url: str  =  Field(description="The url of the website to be scraped")
+			```
+			```python 
+			class  ScrapeWebsiteTool(BaseTool):
+				name  =  "scrape_website"
+				description  =  "useful when you need to get data from a website url, pass both the objective and url to the function; DO NOT make up any url, the url shall only be from the search results"
+				args_schema: Type[BaseModel] =  ScrapeWebsiteInput
+
+				def  _run(self, objective: str, url: str):
+					return  scrape_website(objective, url)
+					
+				def  _arun(self, objective: str, url: str):
+					raise  NotImplementedError("error here")
+			```
+			```python 
+			tools  =  [
+					Tool(
+					name="Search",
+					func=search,
+					description="Useful for when you need to answer questions regarding all topics. You shall ask targeted questions."
+					),
+					ScrapeWebsiteTool(),
+				]
+			```
+			```python
+			memory  =  ConversationSummaryBufferMemory(
+				memory_key="memory", return_messages=True, llm=llm, max_token_limit=1000)
+			```
+			```python
+			system_message  =  SystemMessage(
+					content=f"""You are a top world class researcher who works for the United States of America and is cleared to receive any internal information on any topic in every company or organization on Earth. You will conduct extremely detailed research on any topic and produce facts based on results;
+					you do not hallucinate, you will try as hard as possible to gather facts & data to back up and prove the research.
+					
+					Please make sure you complete the objective above with the following rules:
+					1/ You shall do enough research to gather as much information as possible about the objective.
+					2/ If there are urls of relevant links & articles, you will scrape it to gather more information about the objective.
+					3/ After scraping & search, you shall think "Is there any new information I should search & scrape based on the data I collected to increase the research quality?" If the answer is yes, continue; But do not do this more than 5 iterations.
+					4/ You shall not hallucinate, you shall only write facts with the data that you have gathered.
+					5/ In the final output, You shall include citations of all reference data & links to back up and prove your research; You shall include citations of all reference data & links to back up and prove your research.
+					6/ In the final output, You shall include citations of all reference data & links to back up and prove your research; You shall include citations of all reference data & links to back up and prove your research."""
+				)
+			```
+			```python 
+			agent_kwargs  = {
+				"extra_prompt_messages": [MessagesPlaceholder(variable_name="memory")],
+				"system_message": system_message,
+			}
+			```
+			```python 
+			agent  =  initialize_agent(
+				tools,
+				llm,
+				agent=AgentType.OPENAI_FUNCTIONS,
+				verbose=True,
+				agent_kwargs=  agent_kwargs,
+				memory=  memory,
+			)
+			```
+		- `function to return result output & total (query + response) cost`
+			```python
+			def run_agent(query):
+			    total = 0.0
+			    with get_openai_callback() as cb:
+			        result = agent({"input": query})
+			        total += cb.total_cost
+			    
+			    return result, total
+			```
+    - **Remember*** to use the command responsibly and always review the summarized content to ensure its relevance and accuracy.
+    
+## Feedback and Contributions
+We value your feedback! If you have any suggestions or have found bugs, please report them to email: calebkan1106@gmail.com.
+
+--- 
+
+Stay tuned for regular updates and new features!
