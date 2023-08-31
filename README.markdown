@@ -34,7 +34,7 @@ To experience the power of the AI Research Agent for yourself, it's incredibly s
 	```
 
 ### Functionality
-   -   **Description**: When the application is in running, it dives into the top search results related to your query. Using a sophisticated large language model, the bot evaluates whether a website contains information relevant to your research objective. If a match is found, the bot extracts the necessary text data. This process is repeated for multiple websites, ensuring a comprehensive search. At the end of this research expedition, the bot crafts a summarized output of its findings, neatly packaged with citations for your reference.
+   - **Description**: When the application is in running, it dives into the top search results related to your query. Using a sophisticated large language model, the bot evaluates whether a website contains information relevant to your research objective. If a match is found, the bot extracts the necessary text data. This process is repeated for multiple websites, ensuring a comprehensive search. At the end of this research expedition, the bot crafts a summarized output of its findings, neatly packaged with citations for your reference.
     - **Technical**: 
 		- `function to search the web`
 			 ```python
@@ -206,7 +206,7 @@ To experience the power of the AI Research Agent for yourself, it's incredibly s
 			    
 			    return result, total
 			```
-    - **Remember*** to use the command responsibly and always review the summarized content to ensure its relevance and accuracy.
+  - **Remember*** to use the command responsibly and always review the summarized content to ensure its relevance and accuracy.
     
 ## Feedback and Contributions
 We value your feedback! If you have any suggestions or have found bugs, please report them to email: calebkan1106@gmail.com.
