@@ -72,33 +72,20 @@ To experience the power of the AI Research Agent for yourself, it's incredibly s
 				}
 
 				data_json  =  json.dumps(data)
-
 				post_url  =  f"https://chrome.browserless.io/content?token={browserless_api_key}"
-
 				response  =  requests.post(post_url, headers=headers, data=data_json)
 
 				if  response.status_code  ==  200:
-
 					soup  =  BeautifulSoup(response.content, "html.parser")
-
 					text  =  soup.get_text()
-
 					print("THIS CONTENT:", text)
-
-				  
-
 					if  len(text) >  10000:
-
 						output  =  summary(objective, text)
-
 						return  output
-
 					else:
-
 						return  text
 
 				else:
-
 					print(f"HTTP request failed with status code {response.status_code}")
 			
 			```
