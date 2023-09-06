@@ -173,6 +173,10 @@ To experience the power of the AI Research Agent for yourself, it's incredibly s
 				"system_message": system_message,
 			}
 			```
+			```python
+			global chat_history
+			chat_history = []
+			```
 			```python 
 			agent  =  initialize_agent(
 				tools,
@@ -181,6 +185,7 @@ To experience the power of the AI Research Agent for yourself, it's incredibly s
 				verbose=True,
 				agent_kwargs=  agent_kwargs,
 				memory=  memory,
+				chat_history = chat_history
 			)
 			```
 		- `function to return result output & total (query + response) cost`
