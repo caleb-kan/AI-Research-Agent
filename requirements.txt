@@ -20,4 +20,3 @@ typing-inspect
 tiktoken
 streamlit-js-eval
 pymongo
-openai migrate
