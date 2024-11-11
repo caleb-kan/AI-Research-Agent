@@ -1,5 +1,4 @@
-﻿os
-python-dotenv
+﻿python-dotenv
 streamlit_js_eval
 pymongo
 pandas
@@ -11,6 +10,5 @@ langchain
 pydantic
 beautifulsoup4
 requests
-json
 fastapi
 tweepy
