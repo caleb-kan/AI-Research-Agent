@@ -6,7 +6,7 @@ numpy
 matplotlib
 streamlit
 openai
-langchain
+langchain==0.0.142
 pydantic==1.10.12
 beautifulsoup4
 requests
